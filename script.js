@@ -1,7 +1,9 @@
+const CANVAS = document.getElementById('canvas');
+
 let hero = {
   html: document.getElementById('hero'),
   pos: 100,
-  posJump: 300,
+  posJump: 400,
   goingUp: true,
   animated: null,
   move: function () {
@@ -37,22 +39,57 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-var parent = document.getElementById('canvas');
-var firstChild = document.getElementById('floor');
-var addNewChar = `<img id="${hero}" src="${image}" alt="${alt}"></img>`;
-
-const hand = new Enemy("hand", "/images/zombie-hand.png", "mano zombie");
-const zombie = new Enemy("zombie", "/images/zombie.png", "zombie");
-
-function NewChar(id, src, alt) {
+function Enemy(id, src, pos) {
   this.id = id;
   this.src = src;
-  this.alt = alt;
+  this.pos = pos;
+
+  var htmlEnemy = document.createElement('img');
+  htmlEnemy.id = id;
+  htmlEnemy.src = src;
+  htmlEnemy.style.right = `${pos}px`;
+  htmlEnemy.classList.add('enemy');
+  CANVAS.appendChild(htmlEnemy);
+
+  this.move = function () {
+    this.pos += 10;
+    document.getElementById(this.id).style.right = `${this.pos}px`;
+  }
 };
 
-function Enemy() {};
+const GAME = {
+  enemies: [],
+  numEnemies: 10,
+  posVariability: 200,
+  enemyDistance: 1000,
+  timerId: null,
+  init: function () {
+    for (let i = 0; i < this.numEnemies; i++) {
+      var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
+      if (Math.random() > 0.5) {
+        var img = "/images/zombie-hand.png";
+      } else {
+        var img = "/images/zombie.png";
+      }
+      this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos));
+    }
+  },
+  start: function () {
+    if (this.timerId == null) {
+      this.timerId = setInterval(function () {
+        this.enemies.forEach(function (enemy) {
+          enemy.move();
 
-Newchar.prototype=Object.create(Enemy(NewChar, id, src, atl));
-Enemy.prototype.constructor=Enemy;
+          // check Collisions
+          // if (enemy.pos == 1140) { alert('COLISSION!!') }
+        })
+      }.bind(this), 30)
+    }
+  },
+  stop: function () {
+    clearInterval(this.timerId);
+    this.timerId = null;
+  }
+}
 
-console.log(hand);
+GAME.init();

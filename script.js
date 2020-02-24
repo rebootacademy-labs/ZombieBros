@@ -37,12 +37,22 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-function Enemies(id, src, alt) {
+var parent = document.getElementById('canvas');
+var firstChild = document.getElementById('floor');
+var addNewChar = `<img id="${hero}" src="${image}" alt="${alt}"></img>`;
+
+const hand = new Enemy("hand", "/images/zombie-hand.png", "mano zombie");
+const zombie = new Enemy("zombie", "/images/zombie.png", "zombie");
+
+function NewChar(id, src, alt) {
   this.id = id;
   this.src = src;
   this.alt = alt;
+};
 
-}
+function Enemy() {};
 
-const hand = new Enemy("hand", "/images/zombie-hand.png", "mano zombie")
-const zombie = new Enemy("zombie", "/images/zombie.png", "zombie")
+Newchar.prototype=Object.create(Enemy(NewChar, id, src, atl));
+Enemy.prototype.constructor=Enemy;
+
+console.log(hand);

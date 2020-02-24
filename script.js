@@ -2,7 +2,7 @@ const CANVAS = document.getElementById('canvas');
 
 let hero = {
   html: document.getElementById('hero'),
-  pos: 100,
+  pos: 100, // Distancia del botton del canvas eje y
   posJump: 400,
   goingUp: true,
   animated: null,
@@ -75,14 +75,14 @@ const GAME = {
     }
   },
   start: function () {
+   // var x = 60;
+   // var y = 496;
     if (this.timerId == null) {
       this.timerId = setInterval(function () {
         this.enemies.forEach(function (enemy) {
           enemy.move();
-
-          // check Collisions
-          // if (enemy.pos == 1140) { alert('COLISSION!!') }
-        })
+          if (hero.x < enemy.x + enemy.width && hero.x + hero.width > enemy.x){ alert('COLISSION!!') }
+        }) 
       }.bind(this), 30)
     }
   },

@@ -15,16 +15,16 @@
   right:24px;
 }
 
-#lives li {
+#lives {
+  position: absolute;
   top: 24px;
-  left:24px;
-  display: inline;
-  margin-left: 6px;
+  left: 24px;
 }
 
-li > img {
-  height: 60px;
-}
+ #lives > img {
+   height: 60px;
+   padding-left: 6px;
+ }
 
 #canvas > div,
 #canvas > img {

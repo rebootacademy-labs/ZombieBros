@@ -64,6 +64,7 @@ function Enemy(id, src, pos) {
     document.getElementById(this.id).style.right = `${this.pos}px`;
   }
 };
+
 const GAME = {
   enemies: [],
   numEnemies: 10,
@@ -82,13 +83,11 @@ const GAME = {
     }
   },
   start: function () {
-   // var x = 60;
-   // var y = 496;
     if (this.timerId == null) {
       this.timerId = setInterval(function () {
         this.enemies.forEach(function (enemy) {
           enemy.move();
-          if (hero.x < enemy.x + enemy.width && hero.x + hero.width > enemy.x){ alert('COLISSION!!') }
+          if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220){ alert('COLISSION!!') }
         }) 
       }.bind(this), 30)
     }

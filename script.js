@@ -33,6 +33,16 @@ let hero = {
   }
 }
 
+// Movimiento Floor
+var floor = document.getElementById('floor');
+var movement = 10
+setInterval(function(){
+  floor.style.right = movement + "px";  
+  movement++;
+}, 12);
+
+// Fin Movimiento Floor
+
 document.addEventListener("keydown", function (event) {
   switch (event.code) {
     case "Space":

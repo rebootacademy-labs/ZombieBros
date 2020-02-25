@@ -6,6 +6,7 @@ let hero = {
   posJump: 400,
   goingUp: true,
   animated: null,
+  lifes: 4,
   move: function () {
     // Detect TOP position
     if (this.pos == this.posJump) {
@@ -51,6 +52,8 @@ function Enemy(id, src, pos) {
   this.id = id;
   this.src = src;
   this.pos = pos;
+  this.killer = false;
+  this.dead = false;
 
   var htmlEnemy = document.createElement('img');
   htmlEnemy.id = id;
@@ -87,7 +90,15 @@ const GAME = {
       this.timerId = setInterval(function () {
         this.enemies.forEach(function (enemy) {
           enemy.move();
-          if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220){ alert('COLISSION!!') }
+          if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
+            hero.lifes --;
+            enemy.killer = true;
+          }
+          else if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && hero.lifes === 0 && !enemy.dead){
+            alert('You Loss');
+            enemy.dead = true;
+            GAME.stop();
+          }
         }) 
       }.bind(this), 30)
     }
@@ -97,4 +108,14 @@ const GAME = {
     this.timerId = null;
   }
 }
+
+// Marcador y vidas
+var scoreCount = 0;
+
+setInterval(function (){
+  scoreCount ++;
+},200);
+
+
+
 GAME.init();

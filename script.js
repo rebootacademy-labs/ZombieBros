@@ -37,6 +37,12 @@ document.addEventListener("keydown", function (event) {
   if (event.code === "Space" || event.code === "ArrowUp") {
     hero.jump();
   }
+  else if (event.code === "Enter") {
+    GAME.start();
+  }
+  else if (event.code ==="Escape") {
+    GAME.stop();
+  }
 });
 
 function Enemy(id, src, pos) {
@@ -56,7 +62,6 @@ function Enemy(id, src, pos) {
     document.getElementById(this.id).style.right = `${this.pos}px`;
   }
 };
-
 const GAME = {
   enemies: [],
   numEnemies: 10,
@@ -79,9 +84,8 @@ const GAME = {
       this.timerId = setInterval(function () {
         this.enemies.forEach(function (enemy) {
           enemy.move();
-
           // check Collisions
-          // if (enemy.pos == 1140) { alert('COLISSION!!') }
+         //if (heroColision < enemyColision) { alert('COLISSION!!') }
         })
       }.bind(this), 30)
     }
@@ -91,5 +95,5 @@ const GAME = {
     this.timerId = null;
   }
 }
-
 GAME.init();
+

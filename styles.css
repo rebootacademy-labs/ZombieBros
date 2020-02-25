@@ -17,10 +17,15 @@
 
 #lives {
   height: 50px;
-  width: 100px;
-  background-color: red;
+  width: 200px;
   top: 24px;
   left:24px;
+}
+
+#lives > img {
+  position: relative;
+  width: 40px;
+  height: 70px;
 }
 
 #canvas > div,
@@ -30,7 +35,6 @@
 
 #floor {
   bottom: 120px;
-
 }
 
 #hero {

@@ -34,14 +34,16 @@ let hero = {
 }
 
 document.addEventListener("keydown", function (event) {
-  if (event.code === "Space" || event.code === "ArrowUp") {
-    hero.jump();
-  }
-  else if (event.code === "Enter") {
-    GAME.start();
-  }
-  else if (event.code ==="Escape") {
-    GAME.stop();
+  switch (event.code) {
+    case "Space":
+    case "ArrowUp":
+      hero.jump();
+      break;
+    case "Enter":
+      GAME.start();
+      break;
+    case "Escape":
+      GAME.stop();
   }
 });
 

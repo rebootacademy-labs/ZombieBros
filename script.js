@@ -6,7 +6,8 @@ let hero = {
   posJump: 400,
   goingUp: true,
   animated: null,
-  move: function () { // Movement Hero Function
+  lifes: 4,
+  move: function () {
     // Detect TOP position
     if (this.pos == this.posJump) {
       this.goingUp = false;
@@ -61,6 +62,8 @@ function Enemy(id, src, pos) {
   this.id = id;
   this.src = src;
   this.pos = pos;
+  this.killer = false;
+  this.dead = false;
 
   var htmlEnemy = document.createElement('img');
   htmlEnemy.id = id;
@@ -95,9 +98,24 @@ const GAME = {
   start: function () {
     if (this.timerId == null) {
       this.timerId = setInterval(function () {
+        var lives = document.getElementById('lives');
         this.enemies.forEach(function (enemy) {
+ 
           enemy.move();
-          if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220){ alert('COLISSION!!') }
+          if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
+            enemy.killer = true;
+            hero.lifes --;
+            alert('una vida menos');
+            // Inicio Removiendo Vidas
+            lives.removeChild(lives.lastElementChild);
+            // Fin Removiendo Vidas
+          }
+          if(hero.lifes === 1) {
+            console.log('ULTIMA VIDA');
+          } else if (hero.lifes === 0 ) { 
+            alert('GAME OVER');
+            Game.stop()
+          }       
         }) 
       }.bind(this), 30)
     }
@@ -107,4 +125,14 @@ const GAME = {
     this.timerId = null;
   }
 }
+
+// Marcador y vidas
+
+var scoreCount = document.getElementById('score').innerText;
+
+setInterval(function (){
+  scoreCount ++;
+  scoreCount.innerText = scoreCount;
+},200);
+
 GAME.init();

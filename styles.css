@@ -15,12 +15,15 @@
   right:24px;
 }
 
-#lives {
-  height: 50px;
-  width: 100px;
-  background-color: red;
+#lives li {
   top: 24px;
   left:24px;
+  display: inline;
+  margin-left: 6px;
+}
+
+li > img {
+  height: 60px;
 }
 
 #canvas > div,

@@ -2,11 +2,11 @@ const CANVAS = document.getElementById('canvas');
 
 let hero = {
   html: document.getElementById('hero'),
-  pos: 100, // Distancia del botton del canvas eje y
+  pos: 100,
   posJump: 400,
   goingUp: true,
   animated: null,
-  move: function () {
+  move: function () { // Movement Hero Function
     // Detect TOP position
     if (this.pos == this.posJump) {
       this.goingUp = false;

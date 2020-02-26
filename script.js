@@ -86,7 +86,9 @@ const GAME = {
   numEnemies: 60,
   posVariability: 200,
   enemyDistance: 1000,
-  timerId: null,  
+  timerId: null,
+  record: 0,
+  totalScore: 0,
   init: function () {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
@@ -107,39 +109,30 @@ const GAME = {
           if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
             var dead = document.getElementById('hero');
             enemy.killer = true;
-            hero.lifes --;
+            hero.lifes--;
             alert('una vida menos');
             // Inicio Removiendo Vidas
             lives.removeChild(lives.lastElementChild);
             // Fin Removiendo Vidas
-          if(hero.lifes === 1) {
-            console.log('ULTIMA VIDA');
-          } else if (hero.lifes === 0 ) {
-            this.stop();
-            alert ('GAME OVER')
-          }
+            if(hero.lifes === 1) {
+              console.log('ULTIMA VIDA');
+            } else if (hero.lifes === 0 ) { 
+              this.stop();
+              alert ('GAME OVER')
+            }
           }
         }) 
+        document.getElementById('score').innerText = this.totalScore++;
+        if (this.totalScore > this.record) {
+          this.record = this.totalScore;
+        }
       }.bind(this), 30)
     }
   },
   stop: function () {
     clearInterval(this.timerId);
     this.timerId = null;
-  },
-  scores: function() {
-    var record = 0;
-    var scoreCount = document.getElementById('score'); //SCORES
-    var totalScore = setInterval(function (){
-    document.getElementById('score').innerText++;
-    record += totalScore;
-    console.log(record);
-
-    if (hero.lifes === 0){
-    clearInterval(totalScore);
-    this.stop();
-    }
-    },40); 
   }
 }
 GAME.init();
+ç

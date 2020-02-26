@@ -1,4 +1,7 @@
 const CANVAS = document.getElementById('canvas');
+const lostTlifes = document.getElementsByClassName('lastChance')[0];
+lostTlifes.innerText = 'PRESS ENTER FOR START GAME'
+var record = 0;
 
 let hero = {
   html: document.getElementById('hero'),
@@ -30,6 +33,7 @@ let hero = {
   jump: function () {
     if (this.animated == null) {
       this.animated = setInterval(this.move.bind(this), 10);
+      lostTlifes.innerText = ' ';
     }
   }
 }
@@ -43,8 +47,10 @@ document.addEventListener("keydown", function (event) {
     case "Enter":
       GAME.start();
       break;
-    case "Escape":
+    case "Pause":
       GAME.stop();
+    case "Escape":
+      GAME.reset();
   }
 });
 
@@ -74,7 +80,6 @@ const GAME = {
   posVariability: 200,
   enemyDistance: 1000,
   timerId: null,
-  record: 0,
   totalScore: 0,
   floor1: document.getElementById('floor1'),
   floor2: document.getElementById('floor2'),
@@ -92,6 +97,7 @@ const GAME = {
     }
   },
   start: function () {
+    lostTlifes.innerText = ' '
     if (this.timerId == null) {
       this.timerId = setInterval(function () {
         this.moveFloor();
@@ -99,24 +105,30 @@ const GAME = {
         this.enemies.forEach(function (enemy) {
           enemy.move();
           if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
+
             enemy.killer = true;
             hero.lifes--;
-            var lostTlifes = document.getElementById('lastChance');
-            lostTlifes.innerText= 'TRY AGAIN';
+            lostTlifes.innerText = 'TRY AGAIN';
+            setTimeout(function() {
+              lostTlifes.innerText = '';
+            }, 1000);
             lives.removeChild(lives.lastElementChild);
             if(hero.lifes === 1) {
+              setTimeout(function () {
+              lostTlifes.innerText = '';
+              }, 1500);
               lostTlifes.innerText = 'LAST CHANCE';
             } else if (hero.lifes === 0 ) {
               this.stop();
-              document.getElementById('record').innerText = this.record;
+              document.getElementById('record').innerText = record;
               lostTlifes.innerText = 'YOU LOSS';
             }
           }
         }.bind(this))
         this.totalScore++;
         document.getElementById('score').innerText = this.totalScore;
-        if (this.totalScore > this.record) {
-            this.record = this.totalScore;
+        if (this.totalScore > record) {
+            record = this.totalScore;
         }
       }.bind(this), 30)
     }
@@ -126,12 +138,13 @@ const GAME = {
     this.timerId = null;
   },
   moveFloor: function() {
-    this.floor1pos += 4;
-    this.floor2pos += 4;
+    this.floor1pos += 8;
+    this.floor2pos += 8;
     this.floor1.style.right = this.floor1pos + "px";
     this.floor2.style.right = this.floor2pos + "px";
     if (this.floor1pos === 1200) { this.floor1pos = -3600 }
     if (this.floor2pos === 1200) { this.floor2pos = -3600 }
   }
 }
+
 GAME.init();

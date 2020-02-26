@@ -83,10 +83,10 @@ function Enemy(id, src, pos) {
 
 const GAME = {
   enemies: [],
-  numEnemies: 10,
+  numEnemies: 60,
   posVariability: 200,
   enemyDistance: 1000,
-  timerId: null,
+  timerId: null,  
   init: function () {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
@@ -115,6 +115,7 @@ const GAME = {
           if(hero.lifes === 1) {
             console.log('ULTIMA VIDA');
           } else if (hero.lifes === 0 ) {
+            this.stop();
             alert ('GAME OVER')
           }
           }
@@ -130,8 +131,14 @@ const GAME = {
     var record = 0;
     var scoreCount = document.getElementById('score'); //SCORES
     var totalScore = setInterval(function (){
-    scoreCount ++;
     document.getElementById('score').innerText++;
+    record += totalScore;
+    console.log(record);
+
+    if (hero.lifes === 0){
+    clearInterval(totalScore);
+    this.stop();
+    }
     },40); 
   }
 }

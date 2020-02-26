@@ -8,7 +8,11 @@
 }
 
 h1 {
-  right: 100px;
+  position: absolute;
+  left: 700px;
+  margin-top: 10px;
+  color: white;
+
 }
 
 #score {
@@ -18,9 +22,11 @@ h1 {
   font-size: 5em;
   top: 50px;
   right: 90px;
+  font-family: 'Courier Prime', ;
 }
 
 #record {
+  margin-top: -5px;
   height: 10px;
   width: 100px;
   color: pink;
@@ -45,13 +51,8 @@ h1 {
   position: absolute;
 }
 
-#floor {
+.floor {
   bottom: 120px;
-}
-
-#floor2 {
-  bottom: 120px;
-  margin-left: 1200px;
 }
 
 #hero
@@ -74,6 +75,5 @@ h1 {
   width: 80px;
   height: 120px;
   bottom: 100px;
+  overflow: hidden;
 }
-
-dead.setAttribute('id', 'hero'); 

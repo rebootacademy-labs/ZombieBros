@@ -34,23 +34,6 @@ let hero = {
   }
 }
 
-// Movimiento Floor
-
-var floor = document.getElementById('floor');
-var floor2 = document.getElementById('floor2');
-
-var movement = 10
-
-setInterval(function(){
-  //if (floor.style.right === 1200){
-  floor.style.right = movement + "px";
-  
-  //floor2.style.right = movement + "px";  
-  movement++;
-}, 12);
-
-// Fin Movimiento Floor
-
 document.addEventListener("keydown", function (event) {
   switch (event.code) {
     case "Space":
@@ -93,6 +76,10 @@ const GAME = {
   timerId: null,
   record: 0,
   totalScore: 0,
+  floor1: document.getElementById('floor1'),
+  floor2: document.getElementById('floor2'),
+  floor1pos: -1200,
+  floor2pos: -3600,
   init: function () {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
@@ -107,35 +94,45 @@ const GAME = {
   start: function () {
     if (this.timerId == null) {
       this.timerId = setInterval(function () {
+        this.moveFloor();
         var lives = document.getElementById('lives');
         this.enemies.forEach(function (enemy) {
           enemy.move();
           if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
-            var dead = document.getElementById('hero');
             enemy.killer = true;
             hero.lifes--;
-            alert('una vida menos');
+            // alert('una vida menos');
             // Inicio Removiendo Vidas
             lives.removeChild(lives.lastElementChild);
             // Fin Removiendo Vidas
             if(hero.lifes === 1) {
               console.log('ULTIMA VIDA');
-            } else if (hero.lifes === 0 ) { 
+            } else if (hero.lifes === 0 ) {
               this.stop();
+              document.getElementById('record').innerText = this.record;
               alert ('GAME OVER')
             }
           }
-        }) 
-        document.getElementById('score').innerText = this.totalScore++;
+        }.bind(this))
+        this.totalScore++;
+        document.getElementById('score').innerText = this.totalScore;
         if (this.totalScore > this.record) {
             this.record = this.totalScore;
         }
-      }.bind(this), 30)
+      }.bind(this), 10)
     }
   },
   stop: function () {
     clearInterval(this.timerId);
     this.timerId = null;
+  },
+  moveFloor: function() {
+    this.floor1pos += 4;
+    this.floor2pos += 4;
+    this.floor1.style.right = this.floor1pos + "px";
+    this.floor2.style.right = this.floor2pos + "px";
+    if (this.floor1pos === 1200) { this.floor1pos = -3600 }
+    if (this.floor2pos === 1200) { this.floor2pos = -3600 }
   }
 }
 GAME.init();

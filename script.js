@@ -101,16 +101,15 @@ const GAME = {
           if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
             enemy.killer = true;
             hero.lifes--;
-            // alert('una vida menos');
-            // Inicio Removiendo Vidas
+            var lostTlifes = document.getElementById('lastChance');
+            lostTlifes.innerText= 'TRY AGAIN';
             lives.removeChild(lives.lastElementChild);
-            // Fin Removiendo Vidas
             if(hero.lifes === 1) {
-              console.log('ULTIMA VIDA');
+              lostTlifes.innerText = 'LAST CHANCE';
             } else if (hero.lifes === 0 ) {
               this.stop();
               document.getElementById('record').innerText = this.record;
-              alert ('GAME OVER')
+              lostTlifes.innerText = 'YOU LOSS';
             }
           }
         }.bind(this))
@@ -119,7 +118,7 @@ const GAME = {
         if (this.totalScore > this.record) {
             this.record = this.totalScore;
         }
-      }.bind(this), 10)
+      }.bind(this), 30)
     }
   },
   stop: function () {

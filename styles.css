@@ -10,9 +10,10 @@
 #score {
   height: 50px;
   width: 100px;
-  background-color: red;
-  top: 24px;
-  right:24px;
+  color: white;
+  font-size: 5em;
+  top: 10px;
+  right: 90px;
 }
 
 #lives {
@@ -33,15 +34,22 @@
 
 #floor {
   bottom: 120px;
-  right: 0px;
-
 }
 
-#hero {
+#hero
+{
   width: 80px;
   height: 120px;
   bottom: 100px;
   left: 60px;
+}
+
+.colision {
+  width: 80px;
+  height: 120px;
+  bottom: 100px;
+  left: 60px;
+  opacity: 5%;
 }
 
 .enemy {
@@ -50,3 +58,4 @@
   bottom: 100px;
 }
 
+dead.setAttribute('id', 'hero'); 

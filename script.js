@@ -35,8 +35,10 @@ let hero = {
 }
 
 // Movimiento Floor
+
 var floor = document.getElementById('floor');
 var movement = 10
+
 setInterval(function(){
   floor.style.right = movement + "px";  
   movement++;
@@ -52,6 +54,7 @@ document.addEventListener("keydown", function (event) {
       break;
     case "Enter":
       GAME.start();
+      GAME.scores();
       break;
     case "Escape":
       GAME.stop();
@@ -100,22 +103,21 @@ const GAME = {
       this.timerId = setInterval(function () {
         var lives = document.getElementById('lives');
         this.enemies.forEach(function (enemy) {
- 
           enemy.move();
           if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
+            var dead = document.getElementById('hero');
             enemy.killer = true;
             hero.lifes --;
             alert('una vida menos');
             // Inicio Removiendo Vidas
             lives.removeChild(lives.lastElementChild);
             // Fin Removiendo Vidas
-          }
           if(hero.lifes === 1) {
             console.log('ULTIMA VIDA');
-          } else if (hero.lifes === 0 ) { 
-            alert('GAME OVER');
-            Game.stop()
-          }       
+          } else if (hero.lifes === 0 ) {
+            alert ('GAME OVER')
+          }
+          }
         }) 
       }.bind(this), 30)
     }
@@ -123,16 +125,14 @@ const GAME = {
   stop: function () {
     clearInterval(this.timerId);
     this.timerId = null;
+  },
+  scores: function() {
+    var record = 0;
+    var scoreCount = document.getElementById('score'); //SCORES
+    var totalScore = setInterval(function (){
+    scoreCount ++;
+    document.getElementById('score').innerText++;
+    },40); 
   }
 }
-
-// Marcador y vidas
-
-var scoreCount = document.getElementById('score').innerText;
-
-setInterval(function (){
-  scoreCount ++;
-  scoreCount.innerText = scoreCount;
-},200);
-
 GAME.init();

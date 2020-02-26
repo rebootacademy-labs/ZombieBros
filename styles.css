@@ -7,11 +7,24 @@
   overflow: hidden;
 }
 
+h1 {
+  right: 100px;
+}
+
 #score {
   height: 50px;
   width: 100px;
   color: white;
   font-size: 5em;
+  top: 50px;
+  right: 90px;
+}
+
+#record {
+  height: 10px;
+  width: 100px;
+  color: pink;
+  font-size: 3em;
   top: 10px;
   right: 90px;
 }
@@ -34,6 +47,11 @@
 
 #floor {
   bottom: 120px;
+}
+
+#floor2 {
+  bottom: 120px;
+  margin-left: 1200px;
 }
 
 #hero

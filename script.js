@@ -37,10 +37,15 @@ let hero = {
 // Movimiento Floor
 
 var floor = document.getElementById('floor');
+var floor2 = document.getElementById('floor2');
+
 var movement = 10
 
 setInterval(function(){
-  floor.style.right = movement + "px";  
+  //if (floor.style.right === 1200){
+  floor.style.right = movement + "px";
+  
+  //floor2.style.right = movement + "px";  
   movement++;
 }, 12);
 
@@ -54,7 +59,6 @@ document.addEventListener("keydown", function (event) {
       break;
     case "Enter":
       GAME.start();
-      GAME.scores();
       break;
     case "Escape":
       GAME.stop();
@@ -124,7 +128,7 @@ const GAME = {
         }) 
         document.getElementById('score').innerText = this.totalScore++;
         if (this.totalScore > this.record) {
-          this.record = this.totalScore;
+            this.record = this.totalScore;
         }
       }.bind(this), 30)
     }
@@ -135,4 +139,3 @@ const GAME = {
   }
 }
 GAME.init();
-ç

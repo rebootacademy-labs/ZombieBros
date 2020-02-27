@@ -1,6 +1,6 @@
 const CANVAS = document.getElementById('canvas');
-const lostTlifes = document.getElementsByClassName('lastChance')[0];
-lostTlifes.innerText = 'PRESS ENTER TO START'
+const lostLifes = document.getElementsByClassName('lastChance')[0];
+lostLifes.innerText = 'PRESS ENTER TO START'
 var record = 0;
 var deadAnimated = function heroAnime() {
     document.getElementById('hero').classList.toggle('fade');
@@ -36,7 +36,7 @@ let hero = {
   jump: function () {
     if (this.animated == null) {
       this.animated = setInterval(this.move.bind(this), 10);
-      lostTlifes.innerText = ' ';
+      lostLifes.innerText = ' ';
     }
   }
 }
@@ -88,7 +88,7 @@ const GAME = {
   floor2: document.getElementById('floor2'),
   floor1pos: -1200,
   floor2pos: -3600,
-  reset: [],
+  batposs: 1000,
   init: function () {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
@@ -102,9 +102,10 @@ const GAME = {
   },
   start: function () {
   this.totalScore = 0;
-  lostTlifes.innerText = ' ';
+  lostLifes.innerText = ' ';
   hero.lifes = 4;
   this.uploadLifes();
+  this.bats();
   if (this.timerId == null) {
     this.timerId = setInterval(function () {
       this.moveFloor();
@@ -114,18 +115,18 @@ const GAME = {
         if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
           enemy.killer = true;
           hero.lifes--;
-          lostTlifes.innerText = 'TRY AGAIN';
+          lostLifes.innerText = 'TRY AGAIN';
           var timerID = setInterval(deadAnimated,150);
           setTimeout(function() {
             clearInterval(timerID);
           },1500);
           lives.removeChild(lives.lastElementChild);
             if(hero.lifes === 1) {
-              lostTlifes.innerText = 'LAST CHANCE';
+              lostLifes.innerText = 'LAST CHANCE';
             } else if (hero.lifes === 0 ) {
               this.stop();
               document.getElementById('record').innerText = record;
-              lostTlifes.innerText = 'YOU LOSS';
+              lostLifes.innerText = 'YOU LOSS';
             }
           }
 
@@ -133,7 +134,7 @@ const GAME = {
         this.totalScore++;
         document.getElementById('score').innerText = this.totalScore;
         if (this.totalScore > record) {
-            record = this.totalScore;
+        record = this.totalScore;
         }
       }.bind(this), 30)
     }
@@ -159,6 +160,45 @@ const GAME = {
       lifeadd.setAttribute('src', img);
       lifesUp.appendChild(lifeadd);
     }
+  },
+  bats: function () {
+
+
+
+    setInterval(function() {
+      var bat = new Bats();
+      bat.move();
+    }, 2000);
+  }
+}
+
+function Bats() {
+  this.img = "/images/bat.gif";
+  this.html = document.createElement('img');
+  this.html.setAttribute('src',this.img);
+  this.html.classList.add('bats');
+  CANVAS.appendChild(this.html);
+  this.x = 1200;
+  this.y = Math.random() * 475;
+  this.incX = 10;
+  this.html.style.left = `${this.x}px`;
+  this.html.style.top = `${this.y}px`;
+  this.timerIdBat;
+
+  this.move = function() {
+    this.timerIdBat = setInterval((function() {
+      this.x -= this.incX;
+      this.html.style.left = this.x + "px";
+
+      if (this.x < 0) {
+        this.remove();
+      }
+    }).bind(this) , 50);
+  }
+
+  this.remove = function() {
+    clearInterval(this.timerIdBat);
+    this.html.remove();
   }
 }
 

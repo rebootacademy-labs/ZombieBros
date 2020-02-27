@@ -53,7 +53,7 @@ document.addEventListener("keydown", function (event) {
     case "Pause":
       GAME.stop();
     case "Escape":
-      GAME.reset();
+      GAME.uploadLifes(); //Reset
   }
 });
 
@@ -88,6 +88,7 @@ const GAME = {
   floor2: document.getElementById('floor2'),
   floor1pos: -1200,
   floor2pos: -3600,
+  reset: [],
   init: function () {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
@@ -100,7 +101,10 @@ const GAME = {
     }
   },
   start: function () {
+  this.totalScore = 0;
   lostTlifes.innerText = ' ';
+  hero.lifes = 4;
+  this.uploadLifes();
   if (this.timerId == null) {
     this.timerId = setInterval(function () {
       this.moveFloor();
@@ -111,7 +115,10 @@ const GAME = {
           enemy.killer = true;
           hero.lifes--;
           lostTlifes.innerText = 'TRY AGAIN';
-          setInterval(deadAnimated,150);
+          var timerID = setInterval(deadAnimated,150);
+          setTimeout(function() {
+            clearInterval(timerID);
+          },1500);
           lives.removeChild(lives.lastElementChild);
             if(hero.lifes === 1) {
               lostTlifes.innerText = 'LAST CHANCE';
@@ -142,6 +149,16 @@ const GAME = {
     this.floor2.style.right = this.floor2pos + "px";
     if (this.floor1pos === 1200) { this.floor1pos = -3600 }
     if (this.floor2pos === 1200) { this.floor2pos = -3600 }
+  },
+  uploadLifes: function() {
+    document.getElementById('lives').innerText = ""
+    var img = "/images/pelotas.png";
+    var lifesUp = document.getElementById('lives');
+    for (var i = 0; i < 4; i++) {
+      let lifeadd = document.createElement('img');
+      lifeadd.setAttribute('src', img);
+      lifesUp.appendChild(lifeadd);
+    }
   }
 }
 

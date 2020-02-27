@@ -55,6 +55,10 @@ h1,
   text-align: center;
  }
 
+ .lastChance {
+   font-size: 1.5em;
+ }
+
 #canvas > div,
 #canvas > img {
   position: absolute;
@@ -96,4 +100,13 @@ h1,
 .bats {
   width: 100px;
   height: 100px;
+}
+
+#background {
+  position: absolute;
+  height: 538px;
+  width: 1200px;
+  background-image: url(./images/cielo.png);
+  background-size: contain;
+  back
 }

@@ -126,7 +126,7 @@ const GAME = {
             } else if (hero.lifes === 0 ) {
               this.stop();
               document.getElementById('record').innerText = record;
-              lostLifes.innerText = 'YOU LOSS';
+              lostLifes.innerText = 'GAME OVER';
             }
           }
 

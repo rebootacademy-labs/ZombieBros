@@ -1,6 +1,6 @@
 const CANVAS = document.getElementById('canvas');
 const lostTlifes = document.getElementsByClassName('lastChance')[0];
-lostTlifes.innerText = 'PRESS ENTER FOR START GAME'
+lostTlifes.innerText = 'PRESS ENTER TO START'
 var record = 0;
 
 let hero = {

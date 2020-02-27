@@ -1,5 +1,6 @@
 * {
   font-family: 'VT323';
+  font-size: 48px;
 }
 
 #canvas {
@@ -11,31 +12,27 @@
   overflow: hidden;
 }
 
-h1 {
+h1, 
+#record {
   position: absolute;
-  left: 700px;
-  margin-top: 10px;
+  right: 0px;
+  left: 0px;
+  text-align: center;
   color: white;
+}
 
+#record {
+  top: 72px;
 }
 
 #score {
   position: absolute;
   color: white;
-  font-size: 5em;
+  top: 24px;
   right: 24px;
   text-align: right;
 }
 
-#record {
-  margin-top: -5px;
-  height: 10px;
-  width: 100px;
-  color: pink;
-  font-size: 3em;
-  top: 10px;
-  right: 90px;
-}
 
 #lives {
   position: absolute;
@@ -48,17 +45,14 @@ h1 {
   padding-left: 6px;
  }
 
- #lostLife, .lastChance {
-  width: 300px;
-  height: 100px;
-  font-size: 3em;
-  color: white;
+ #lostLife, 
+ .lastChance {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 25%;
-  margin: auto;
-  text-align-last: center;
+  color: white;
+  top: 40%;
+  left: 0px;
+  right: 0px;
+  text-align: center;  
  }
 
 #canvas > div,

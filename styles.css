@@ -20,13 +20,11 @@ h1 {
 }
 
 #score {
-  height: 50px;
-  width: 100px;
+  position: absolute;
   color: white;
   font-size: 5em;
-  top: 50px;
-  right: 90px;
-  font-family: 'Courier Prime', ;
+  right: 24px;
+  text-align: right;
 }
 
 #record {

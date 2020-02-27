@@ -2,6 +2,9 @@ const CANVAS = document.getElementById('canvas');
 const lostTlifes = document.getElementsByClassName('lastChance')[0];
 lostTlifes.innerText = 'PRESS ENTER FOR START GAME'
 var record = 0;
+var deadAnimated = function heroAnime() {
+    document.getElementById('hero').classList.toggle('fade');
+}
 
 let hero = {
   html: document.getElementById('hero'),
@@ -97,26 +100,20 @@ const GAME = {
     }
   },
   start: function () {
-    lostTlifes.innerText = ' '
-    if (this.timerId == null) {
-      this.timerId = setInterval(function () {
-        this.moveFloor();
-        var lives = document.getElementById('lives');
-        this.enemies.forEach(function (enemy) {
-          enemy.move();
-          if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
-
-            enemy.killer = true;
-            hero.lifes--;
-            lostTlifes.innerText = 'TRY AGAIN';
-            setTimeout(function() {
-              lostTlifes.innerText = '';
-            }, 1000);
-            lives.removeChild(lives.lastElementChild);
+  lostTlifes.innerText = ' ';
+  if (this.timerId == null) {
+    this.timerId = setInterval(function () {
+      this.moveFloor();
+      var lives = document.getElementById('lives');
+      this.enemies.forEach(function (enemy) {
+        enemy.move();
+        if (enemy.pos+80 > 1060 && enemy.pos < 1140 && hero.pos < 220 && !enemy.killer) {
+          enemy.killer = true;
+          hero.lifes--;
+          lostTlifes.innerText = 'TRY AGAIN';
+          setInterval(deadAnimated,150);
+          lives.removeChild(lives.lastElementChild);
             if(hero.lifes === 1) {
-              setTimeout(function () {
-              lostTlifes.innerText = '';
-              }, 1500);
               lostTlifes.innerText = 'LAST CHANCE';
             } else if (hero.lifes === 0 ) {
               this.stop();
@@ -124,6 +121,7 @@ const GAME = {
               lostTlifes.innerText = 'YOU LOSS';
             }
           }
+
         }.bind(this))
         this.totalScore++;
         document.getElementById('score').innerText = this.totalScore;

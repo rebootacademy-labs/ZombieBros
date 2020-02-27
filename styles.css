@@ -41,8 +41,7 @@ h1,
 }
 
  #lives > img {
-  height: 60px;
-  padding-left: 6px;
+  height: 32px;
  }
 
  #lostLife, 

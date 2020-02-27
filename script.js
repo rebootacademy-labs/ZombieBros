@@ -50,14 +50,12 @@ document.addEventListener("keydown", function (event) {
     case "Enter":
       GAME.start();
       break;
-    case "Pause":
-      GAME.stop();
     case "Escape":
-      GAME.uploadLifes(); //Reset
+      GAME.stop();
   }
 });
 
-function Enemy(id, src, pos) {
+function Enemy(id, src, pos, isHand) {
   this.id = id;
   this.src = src;
   this.pos = pos;
@@ -67,6 +65,7 @@ function Enemy(id, src, pos) {
   var htmlEnemy = document.createElement('img');
   htmlEnemy.id = id;
   htmlEnemy.src = src;
+  if (isHand) { htmlEnemy.style.height = '100px'; }
   htmlEnemy.style.right = `${pos}px`;
   htmlEnemy.classList.add('enemy');
   CANVAS.appendChild(htmlEnemy);
@@ -88,16 +87,16 @@ const GAME = {
   floor2: document.getElementById('floor2'),
   floor1pos: -1200,
   floor2pos: -3600,
-  batposs: 1000,
   init: function () {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
       if (Math.random() > 0.5) {
         var img = "/images/zombie-hand.png";
+        this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos, true));
       } else {
         var img = "/images/zombie.png";
+        this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos));
       }
-      this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos));
     }
   },
   start: function () {
@@ -162,9 +161,6 @@ const GAME = {
     }
   },
   bats: function () {
-
-
-
     setInterval(function() {
       var bat = new Bats();
       bat.move();
@@ -189,13 +185,11 @@ function Bats() {
     this.timerIdBat = setInterval((function() {
       this.x -= this.incX;
       this.html.style.left = this.x + "px";
-
-      if (this.x < 0) {
+      if (this.x < -50) {
         this.remove();
       }
-    }).bind(this) , 50);
+    }).bind(this) , 100);
   }
-
   this.remove = function() {
     clearInterval(this.timerIdBat);
     this.html.remove();

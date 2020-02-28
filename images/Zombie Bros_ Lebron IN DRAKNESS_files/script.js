@@ -73,10 +73,10 @@ function Enemy(id, src, pos, isHand) {
   this.move = function () {
     document.getElementById(this.id).style.right = `${this.pos}px`;
     var speed =  document.getElementById('score').innerText;      
-    if ( speed >= 500 ) {
-      this.pos += 25;
+    if ( speed == 500 ) {
+      this.pos += 10;
     } else {
-      this.pos += 20;
+      this.pos += 60;
     }
   }
 };
@@ -169,7 +169,7 @@ const GAME = {
     setInterval(function() {
       var bat = new Bats();
       bat.move();
-    }, 2500);
+    }, 2000);
   }
 }
 

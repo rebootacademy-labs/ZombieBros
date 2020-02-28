@@ -1,0 +1,112 @@
+* {
+  font-family: 'VT323';
+  font-size: 48px;
+}
+
+#canvas {
+  width: 1200px;
+  height: 675px;
+  background-color: hsl(294, 76%, 25%);
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+h1,
+#record {
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  text-align: center;
+  color: white;
+}
+
+#record {
+  top: 72px;
+}
+
+#score {
+  position: absolute;
+  color: white;
+  top: 24px;
+  right: 24px;
+  text-align: right;
+}
+
+
+#lives {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+
+ #lives > img {
+  height: 32px;
+  margin-right: 12px;
+ }
+
+ #lostLife,
+ .lastChance {
+  position: absolute;
+  color: white;
+  top: 40%;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+ }
+
+ .lastChance {
+   font-size: 1.5em;
+ }
+
+#canvas > div,
+#canvas > img {
+  position: absolute;
+}
+
+.floor {
+  bottom: 120px;
+}
+
+#hero, .active
+{
+  width: 80px;
+  height: 120px;
+  bottom: 100px;
+  left: 60px;
+  opacity: 1;
+
+}
+
+#hero.fade {
+  opacity: 20%;
+}
+
+.colision {
+  width: 80px;
+  height: 120px;
+  bottom: 100px;
+  left: 60px;
+  opacity: 5%;
+}
+
+.enemy {
+  width: 80px;
+  height: 120px;
+  bottom: 100px;
+  overflow: hidden;
+}
+
+.bats {
+  width: 100px;
+  height: 100px;
+}
+
+#background {
+  position: absolute;
+  height: 538px;
+  width: 1200px;
+  background-image: url(./images/cielo.png);
+  background-size: contain;
+  back
+}

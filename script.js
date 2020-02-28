@@ -27,7 +27,7 @@ let hero = {
     } else {
       this.pos -= 5;
     }
-    this.html.style.bottom = `${this.pos}px`
+    this.html.style.bottom = `${this.pos}px`;
   },
   jump: function () {
     if (this.animated == null) {

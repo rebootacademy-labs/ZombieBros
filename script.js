@@ -158,7 +158,7 @@ const GAME = {
   },
   uploadLifes: function() {
     document.getElementById('lives').innerText = ""
-    var img = "/images/pelotas.png";
+    var img = "./images/pelotas.png";
     var lifesUp = document.getElementById('lives');
     for (var i = 0; i < 4; i++) {
       let lifeadd = document.createElement('img');
@@ -175,7 +175,7 @@ const GAME = {
 }
 
 function Bats() {
-  this.img = "/images/bat.gif";
+  this.img = "./images/bat.gif";
   this.html = document.createElement('img');
   this.html.setAttribute('src',this.img);
   this.html.classList.add('bats');

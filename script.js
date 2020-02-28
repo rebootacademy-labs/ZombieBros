@@ -14,23 +14,19 @@ let hero = {
   animated: null,
   lifes: 4,
   move: function () {
-    // Detect TOP position
     if (this.pos == this.posJump) {
       this.goingUp = false;
     }
-    // Detect END of movement
     if (this.pos == 100 && !this.goingUp) {
       this.goingUp = true;
       clearInterval(this.animated);
       this.animated = null;
     }
-    // Calculate new position
     if (this.goingUp) {
       this.pos += 5;
     } else {
       this.pos -= 5;
     }
-    // Update HTML
     this.html.style.bottom = `${this.pos}px`
   },
   jump: function () {
@@ -72,7 +68,7 @@ function Enemy(id, src, pos, isHand) {
 
   this.move = function () {
     document.getElementById(this.id).style.right = `${this.pos}px`;
-    var speed =  document.getElementById('score').innerText;      
+    var speed =  document.getElementById('score').innerText;
     if ( speed >= 500 ) {
       this.pos += 25;
     } else {
@@ -96,14 +92,19 @@ const GAME = {
     for (let i = 0; i < this.numEnemies; i++) {
       var rightPos = Math.floor(Math.random() * this.posVariability) - (this.enemyDistance * i);
       if (Math.random() > 0.5) {
-        var img = "/images/zombie-hand.png";
+        var img = "./images/zombie-hand.png";
         this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos, true));
-      } else {
-        var img = "/images/zombie.png";
+      }
+      else if (Math.random() > 0.7) {
+        var img = "./images/zombie.png";
         this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos));
+      } else {
+      var img = "./images/zombie2.png";
+      this.enemies.push(new Enemy(`enemy-${i + 1}`, img, rightPos));
       }
     }
   },
+
   start: function () {
   this.totalScore = 0;
   lostLifes.innerText = ' ';

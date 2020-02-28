@@ -15,7 +15,7 @@ var deadAnimated = function heroAnime() {
 let hero = {
   html: document.getElementById('hero'),
   pos: 100,
-  posJump: 400,
+  posJump: 350,
   goingUp: true,
   animated: null,
   lifes: 4,
@@ -57,6 +57,7 @@ document.addEventListener("keydown", function (event) {
       break;
     case "Enter":
       GAME.start();
+      AUDIOS.over.pause();
       AUDIOS.game.play();
       break;
     case "Escape":

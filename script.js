@@ -1,3 +1,13 @@
+var audioGame = document.createElement('audio');
+var audioJump = document.createElement('audio');
+var overSound = document.createElement('audio');
+
+window.onload = function () {
+  audioGame.setAttribute('src', './sounds/GAME.ogg');
+  audioJump.setAttribute('src', './sounds/jump.ogg');
+  overSound.setAttribute('src', './sounds/GAME-OVER.ogg');
+};
+
 const CANVAS = document.getElementById('canvas');
 const lostLifes = document.getElementsByClassName('lastChance')[0];
 lostLifes.innerText = 'PRESS ENTER TO START'
@@ -34,20 +44,27 @@ let hero = {
       this.animated = setInterval(this.move.bind(this), 10);
       lostLifes.innerText = ' ';
     }
+    if (this.lifes === 0) {
+      overSound();
+    }
   }
 }
 
 document.addEventListener("keydown", function (event) {
   switch (event.code) {
     case "Space":
+      audioJump.play();
     case "ArrowUp":
       hero.jump();
+      audioJump.play();
       break;
     case "Enter":
       GAME.start();
+      audioGame.play();
       break;
     case "Escape":
       GAME.stop();
+      audioGame.pause();
   }
 });
 

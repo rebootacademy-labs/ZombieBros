@@ -146,6 +146,7 @@ const GAME = {
             } else if (hero.lifes === 0 ) {
               debugger
               this.stop();
+              AUDIOS.game.pause();
               AUDIOS.over.play();
               document.getElementById('record').innerText = record;
               lostLifes.innerText = 'GAME OVER';

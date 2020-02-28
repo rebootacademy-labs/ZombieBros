@@ -1,12 +1,8 @@
-var audioGame = document.createElement('audio');
-var audioJump = document.createElement('audio');
-var overSound = document.createElement('audio');
-
-window.onload = function () {
-  audioGame.setAttribute('src', './sounds/GAME.ogg');
-  audioJump.setAttribute('src', './sounds/jump.ogg');
-  overSound.setAttribute('src', './sounds/GAME-OVER.ogg');
-};
+const AUDIOS = {
+  jump: new Audio('./sounds/jump.ogg'),
+  game: new Audio('./sounds/GAME.ogg'),
+  over: new Audio('./sounds/GAME-OVERMP3.mp3'),
+}
 
 const CANVAS = document.getElementById('canvas');
 const lostLifes = document.getElementsByClassName('lastChance')[0];
@@ -53,18 +49,19 @@ let hero = {
 document.addEventListener("keydown", function (event) {
   switch (event.code) {
     case "Space":
-      audioJump.play();
+      hero.jump();
+      AUDIOS.jump.play();
     case "ArrowUp":
       hero.jump();
-      audioJump.play();
+      AUDIOS.jump.play();
       break;
     case "Enter":
       GAME.start();
-      audioGame.play();
+      AUDIOS.game.play();
       break;
     case "Escape":
       GAME.stop();
-      audioGame.pause();
+      AUDIOS.game.pause();
   }
 });
 
@@ -146,7 +143,9 @@ const GAME = {
             if(hero.lifes === 1) {
               lostLifes.innerText = 'LAST CHANCE';
             } else if (hero.lifes === 0 ) {
+              debugger
               this.stop();
+              AUDIOS.over.play();
               document.getElementById('record').innerText = record;
               lostLifes.innerText = 'GAME OVER';
             }
@@ -156,7 +155,7 @@ const GAME = {
         this.totalScore++;
         document.getElementById('score').innerText = this.totalScore;
         if (this.totalScore > record) {
-        record = this.totalScore;
+        record = this.totalScore +1;
         }
       }.bind(this), 30)
     }

@@ -144,7 +144,6 @@ const GAME = {
             if(hero.lifes === 1) {
               lostLifes.innerText = 'LAST CHANCE';
             } else if (hero.lifes === 0 ) {
-              debugger
               this.stop();
               AUDIOS.game.pause();
               AUDIOS.over.play();
